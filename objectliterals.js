@@ -7,3 +7,5 @@ var person = {
 };
 
 person.greet();
+console.log(person.firstname);
+console.log(person['firstname']);
