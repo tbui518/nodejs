@@ -5,15 +5,16 @@ function Person(firstname, lastname) {
 
 }
 
-person.prototype.greet = function(){
+Person.prototype.greet = function(){
     console.log('Hello,' + this.firstname + '' + this.lastname);
 };
 
 var john = new Person('john', 'Doe');
 console.log(john.firstname);
 
-var john = new Person('jane', 'Doe');
+var jane = new Person('jane', 'Doe');
 console.log(jane.firstname);
 
 console.log(john.__proto__);
 console.log(jane.__proto__);
+console.log(jane.__proto__ === john.__proto__);
