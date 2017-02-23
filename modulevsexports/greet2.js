@@ -1,4 +1,4 @@
-exports = function() {
+exports.greet = function() {
     console.log('Hello');
 }
 
