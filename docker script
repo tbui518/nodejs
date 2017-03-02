@@ -1,0 +1,8 @@
+ssh -t -T appuser@10.0.1.73 "
+docker exec -i ugadminworker4 rm /tomcat/ugsite/logs/tcserver.pid
+docker rm -f ugadminworker4
+rm -rf /efs/web/logs/ugadminworker4/tc/tcserver.pid
+git --git-dir=/ug-webapp/Admin/.git --work-tree=/ug-webapp/Admin/ pull origin master
+mvn -f /ug-webapp/Admin/ install -Dadm.env=worker4
+docker run -d -P -p=8888:8080 -p 8009:8009 -p 8443:8443 -p 11080:11080 -v /home/appuser/export/purchasing/icread:/home/appuser/export/purchasing/icread -v /home/appuser/export/purchasing/icsave:/home/appuser/export/purchasing/icsave  -v /ug-webapp/Admin/war/target/admin:/tomcat/ugsite/webapps/admin -v /ug-webapp/decisiontree/target/decisiontree:/tomcat/ugsite/webapps/decisiontree -v /efs/web/logs/ugadminworker4/tc:/tomcat/ugsite/logs -v /storage:/storage -v /swarmefs/pick:/home/fulfillment/pick -v /swarmefs/pack:/home/fulfillment/pack --name ugadminworker4 -h ugadminworker4 -e JVM_ROUTE=ugadminworker4 -e EC2_HOST=10.0.1.73 uncommongoods/tc:admin-prod /tomcat/ugsite/bin/tcruntime-ctl.sh run
+"
